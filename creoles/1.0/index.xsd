@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns="https://github.com/Nummo/ns/creoles/1.0"
+  targetNamespace="https://github.com/Nummo/ns/creoles/1.0"> 
+  <!-- author/ student id: 17099552 -->
+  
+  <xs:element name="chptTitle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="subChaptTitle" type="para" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- reflects the structure of the chapter the samples are taken from -->
+  <xs:complexType name="para" mixed="true"> <!-- need to check error out -->
+    <xs:sequence>
+      <xs:element name="openingIntro"
+      type="xs:string" maxOccurs="1"/>
+      <xs:element name="subTitleCountry"
+      type="paraCountry" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- as each of the samples (chapter of the 10 selected countries) do not follow a set structure, an unordered list is needed. 
+    Not all of the elements listed are needed - the frequeny is refleted in the use of minOccurs -->
+  <xs:complexType name="paraCountry" mixed="true">
+    <xs:all>
+      <xs:element name="currentName"
+        type="xs:string" minOccurs="1"/>
+      <xs:element name="languages" 
+        type="xs:string" minOccurs="1"/>
+      <xs:element name="identification"
+        type="xs:string"/>
+      <xs:element name="colonialEmpire"
+        type="xs:string" minOccurs="0"/>
+      <xs:element name="date"
+        type="yearType" minOccurs="0"/>
+      <xs:element name="ref"
+        type="xs:string" minOccurs="0"/>
+      <xs:element name="source"
+      type="sourceType" minOccurs="1"/>
+    </xs:all>
+  </xs:complexType>
+ 
+  <!-- as references to dates refers to the year or century, 
+    the date element specifies that a positive integer is needed -->
+  <xs:complexType name="yearType">
+    <xs:simpleContent>
+      <xs:extension base="xs:positiveInteger">
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+ 
+ <!-- as the project plans to widen the amount of resources used, 
+   keeping an account on where information has been sourced is important  -->
+  <xs:complexType name="sourceType">
+    <xs:attribute name="authorYear"
+    type="xs:string"/>
+    <xs:attribute name="bookISBN" 
+      type="xs:positiveInteger"/>
+  </xs:complexType>
+</xs:schema>      
+
+
+
